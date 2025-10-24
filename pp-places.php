@@ -45,7 +45,7 @@ if ( ! class_exists( 'PP_Places_Plugin' ) ) {
 			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_assets' ] );
 
 			// Shortcode.
-			add_shortcode( 'pp_places', [ $this, 'shortcode_pp_places' ] );
+			add_shortcode( 'places', [ $this, 'shortcode_places' ] );
 
 			// AJAX (public + logged-out).
 			add_action( "wp_ajax_{$this->ajax_action_fetch}", [ $this, 'ajax_fetch_places' ] );
@@ -135,11 +135,11 @@ if ( ! class_exists( 'PP_Places_Plugin' ) ) {
 		}
 
 		/**
-		 * Shortcode [pp_places].
+		 * Shortcode [places].
 		 *
 		 * @link https://developer.wordpress.org/reference/functions/add_shortcode/
 		 */
-		public function shortcode_pp_places( $atts = [] ) : string {
+		public function shortcode_places( $atts = [] ) : string {
 			wp_enqueue_script( $this->slug . '-js' );
 
 			// Domyślnie 2 na stronę

@@ -55,7 +55,7 @@ npm run watch
 
 ### Executing program
 
-1. Dodaj shortcode `[pp_places]` do strony lub postu
+1. Dodaj shortcode `[places]` do strony lub postu
 2. Plugin automatycznie wyświetli tabelę z filtrami i przyciskami
 3. Dodawaj nowe wpisy przez WP Admin → Places → Add New
 4. Edytuj wpisy przez WP Admin → Places → Edit
@@ -63,8 +63,8 @@ npm run watch
 
 **Shortcode z opcjami:**
 ```
-[pp_places]                    # Domyślnie 2 elementy na stronę
-[pp_places per_page="5"]       # 5 elementów na stronę
+[places]                    # Domyślnie 2 elementy na stronę
+[places per_page="5"]       # 5 elementów na stronę
 ```
 
 **Funkcjonalności:**
