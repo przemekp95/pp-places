@@ -26,7 +26,7 @@ Thumbs.db
 *~
 
 # Production files (generated)
-assets/pp-places.css.map
+assets/places.css.map
 *.min.css
 *.min.js
 
