@@ -29,7 +29,7 @@ Główne funkcjonalności:
 
 ### Installing
 
-1. Pobierz plugin i wgraj do katalogu `wp-content/plugins/pp-places/`
+1. Pobierz plugin i wgraj do katalogu `wp-content/plugins/places/`
 2. Aktywuj plugin w panelu WordPress Admin
 3. **Zainstaluj i aktywuj plugin Advanced Custom Fields (ACF) - to jest wymagane**
 4. **Skonfiguruj pola ACF dla CPT 'places' (wymagane pola: name, address, nip, regon)**
