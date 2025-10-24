@@ -1,14 +1,14 @@
 {
-  "name": "pp-places",
+  "name": "places",
   "version": "1.0.0",
   "description": "WordPress plugin for places management with AJAX filters",
-  "main": "pp-places.php",
+  "main": "places.php",
   "scripts": {
     "build": "npm run build:css && npm run build:clean",
-    "build:css": "sass assets/pp-places.scss assets/pp-places.css --style=expanded --no-source-map",
-    "build:clean": "rm -f assets/pp-places.css.map",
+    "build:css": "sass assets/places.scss assets/places.css --style=expanded --no-source-map",
+    "build:clean": "rm -f assets/places.css.map",
     "dev": "npm run build:css && npm run build:clean",
-    "watch": "sass assets/pp-places.scss assets/pp-places.css --style=expanded --watch --no-source-map"
+    "watch": "sass assets/places.scss assets/places.css --style=expanded --watch --no-source-map"
   },
   "keywords": [
     "wordpress",
