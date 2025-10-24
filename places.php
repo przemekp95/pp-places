@@ -26,6 +26,7 @@ if ( ! class_exists( 'Places_Plugin' ) ) {
 
 		/** @var string */
 		private $ajax_action_fetch = 'places_fetch';
+		private $ajax_action_update = 'places_update';
 
 
 		/** Singleton. */
@@ -50,6 +51,7 @@ if ( ! class_exists( 'Places_Plugin' ) ) {
 			// AJAX (public + logged-out).
 			add_action( "wp_ajax_{$this->ajax_action_fetch}", [ $this, 'ajax_fetch_places' ] );
 			add_action( "wp_ajax_nopriv_{$this->ajax_action_fetch}", [ $this, 'ajax_fetch_places' ] );
+			add_action( "wp_ajax_{$this->ajax_action_update}", [ $this, 'ajax_update_place' ] );
 		}
 
 		/**
@@ -116,12 +118,16 @@ if ( ! class_exists( 'Places_Plugin' ) ) {
 					'ajaxUrl'   => admin_url( 'admin-ajax.php' ),
 					'nonce'     => wp_create_nonce( $this->slug . '_nonce' ),
 					'actions'   => [
-						'fetch'     => $this->ajax_action_fetch,
+						'fetch'  => $this->ajax_action_fetch,
+						'update' => $this->ajax_action_update,
 					],
 					'i18n'      => [
-						'loading'   => __( 'Loading…', 'places' ),
-						'no_results'=> __( 'No results', 'places' ),
-						'load_more' => __( 'Load more', 'places' ),
+						'loading'   => __( 'Ładowanie…', 'places' ),
+						'no_results'=> __( 'Brak wyników', 'places' ),
+						'load_more' => __( 'Załaduj więcej', 'places' ),
+						'edit'      => __( 'Edytuj', 'places' ),
+						'save'      => __( 'Zapisz', 'places' ),
+						'cancel'    => __( 'Anuluj', 'places' ),
 					],
 				]
 			);
@@ -148,7 +154,7 @@ if ( ! class_exists( 'Places_Plugin' ) ) {
 			ob_start();
 			?>
 			<div class="places" data-per-page="<?php echo esc_attr( $per_page ); ?>">
-				<form class="places__filters" aria-label="<?php echo esc_attr__( 'Filters', 'places' ); ?>">
+				<form class="places__filters" aria-label="<?php echo esc_attr__( 'Filtry', 'places' ); ?>">
 					<div>
 						<label>
 							<?php esc_html_e( 'Nazwa', 'places' ); ?>
@@ -184,6 +190,7 @@ if ( ! class_exists( 'Places_Plugin' ) ) {
 								<th><?php esc_html_e( 'Adres', 'places' ); ?></th>
 								<th><?php esc_html_e( 'NIP', 'places' ); ?></th>
 								<th><?php esc_html_e( 'REGON', 'places' ); ?></th>
+								<th><?php esc_html_e( 'Akcje', 'places' ); ?></th>
 							</tr>
 						</thead>
 						<tbody></tbody>
@@ -192,7 +199,7 @@ if ( ! class_exists( 'Places_Plugin' ) ) {
 				</div>
 
 				<div class="places__load-more-wrap">
-					<button type="button" class="places__load-more"><?php esc_html_e( 'Load more', 'places' ); ?></button>
+					<button type="button" class="places__load-more"><?php esc_html_e( 'Załaduj więcej', 'places' ); ?></button>
 				</div>
 			</div>
 			<?php
@@ -285,6 +292,44 @@ if ( ! class_exists( 'Places_Plugin' ) ) {
 					'has_more' => $has_more,
 				]
 			);
+		}
+
+		/**
+		 * AJAX: aktualizuj miejsce (front-end editing).
+		 *
+		 * @link https://developer.wordpress.org/plugins/javascript/ajax/
+		 */
+		public function ajax_update_place() : void {
+			check_ajax_referer( $this->slug . '_nonce', 'nonce' );
+
+			$post_id = isset( $_POST['post_id'] ) ? absint( $_POST['post_id'] ) : 0;
+			$name    = isset( $_POST['name'] )    ? sanitize_text_field( wp_unslash( $_POST['name'] ) )    : '';
+			$address = isset( $_POST['address'] ) ? sanitize_text_field( wp_unslash( $_POST['address'] ) ) : '';
+			$nip     = isset( $_POST['nip'] )     ? preg_replace( '/\D+/', '', (string) $_POST['nip'] )     : '';
+			$regon   = isset( $_POST['regon'] )   ? preg_replace( '/\D+/', '', (string) $_POST['regon'] )   : '';
+
+			if ( ! $post_id || ! current_user_can( 'edit_post', $post_id ) ) {
+				wp_send_json_error( __( 'Unauthorized', 'places' ) );
+				return;
+			}
+
+			// Aktualizuj pola ACF
+			update_post_meta( $post_id, 'name', $name );
+			update_post_meta( $post_id, 'address', $address );
+			update_post_meta( $post_id, 'nip', $nip );
+			update_post_meta( $post_id, 'regon', $regon );
+
+			// Pobierz zaktualizowane dane
+			$updated_item = [
+				'id'       => $post_id,
+				'name'     => $name,
+				'address'  => $address,
+				'nip'      => $nip,
+				'regon'    => $regon,
+				'can_edit' => current_user_can( 'edit_post', $post_id ),
+			];
+
+			wp_send_json_success( $updated_item );
 		}
 	}
 

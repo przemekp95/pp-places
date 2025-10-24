@@ -139,6 +139,94 @@
       transform: none;
     }
   }
+
+  // Style dla przycisków edycji
+  &__edit-btn {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+
+    &:hover {
+      background: #218838;
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+
+  &__save-btn {
+    background: #007cba;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin-right: 0.5rem;
+    transition: all 0.15s ease-in-out;
+
+    &:hover {
+      background: #005a87;
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+
+  &__cancel-btn {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+
+    &:hover {
+      background: #c82333;
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+
+  // Stan edycji
+  &__editing {
+    background-color: #fff3cd !important;
+    border: 2px solid #ffeaa7;
+
+    input {
+      border: 2px solid #007cba !important;
+      background: white !important;
+      font-size: 0.875rem;
+      padding: 0.5rem;
+
+      &:focus {
+        outline: none;
+        border-color: #005a87 !important;
+        box-shadow: 0 0 0 0.2rem rgba(0, 124, 186, 0.25);
+      }
+    }
+
+    td {
+      border-color: #ffeaa7;
+    }
+  }
 }
 
 // Responsywność
