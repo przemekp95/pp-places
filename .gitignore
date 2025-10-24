@@ -1,0 +1,44 @@
+# WordPress
+*.log
+wp-config.php
+wp-content/uploads/
+wp-content/upgrade/
+wp-content/backup-db/
+wp-content/cache/
+wp-content/backups/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*.tmp
+*.temp
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Production files (generated)
+assets/pp-places.css.map
+*.min.css
+*.min.js
+
+# Node modules (if any)
+node_modules/
+
+# Build artifacts
+dist/
+build/
+*.zip
+*.tar.gz
+
+# Temporary files
+*.bak
+*.backup
