@@ -25,26 +25,7 @@ Główne funkcjonalności:
 * **Advanced Custom Fields (ACF) - WYMAGANY do działania wtyczki**
 * jQuery 3.7+ (wbudowany w WordPress)
 
-### Development Dependencies
 
-* Node.js 14.0+
-* Sass 1.77+ (do kompilacji SCSS)
-
-### Build Scripts
-
-```bash
-# Zainstaluj zależności
-npm install
-
-# Development build (kompiluje SCSS bez source map)
-npm run dev
-
-# Production build (kompiluje SCSS i czyści pliki tymczasowe)
-npm run build
-
-# Watch mode (kompiluje SCSS przy zmianach)
-npm run watch
-```
 
 ### Installing
 
@@ -84,7 +65,7 @@ Plugin wymaga skonfigurowania następujących pól ACF dla CPT 'places':
 - `nip` (Text) - NIP
 - `regon` (Text) - REGON
 
-**Uwaga:** Wszystkie dane są przechowywane jako pola ACF, nie używamy post_title.
+**Uwaga:** Wszystkie dane są przechowywane jako pola ACF.
 
 **Uwaga:** Bez pól ACF wtyczka nie będzie działać poprawnie.
 
