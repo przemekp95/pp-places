@@ -11,25 +11,25 @@
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( 'PP_Places_Plugin' ) ) {
+if ( ! class_exists( 'Places_Plugin' ) ) {
 
-	final class PP_Places_Plugin {
+	final class Places_Plugin {
 
-		/** @var PP_Places_Plugin */
+		/** @var Places_Plugin */
 		private static $instance;
 
 		/** @var string */
 		private $version = '1.0.0';
 
 		/** @var string */
-		private $slug = 'pp-places';
+		private $slug = 'places';
 
 		/** @var string */
-		private $ajax_action_fetch = 'pp_places_fetch';
+		private $ajax_action_fetch = 'places_fetch';
 
 
 		/** Singleton. */
-		public static function instance() : PP_Places_Plugin {
+		public static function instance() : Places_Plugin {
 			if ( null === self::$instance ) {
 				self::$instance = new self();
 			}
@@ -59,20 +59,20 @@ if ( ! class_exists( 'PP_Places_Plugin' ) ) {
 		 */
 		public function register_post_type() : void {
 			$labels = [
-				'name'               => _x( 'Places', 'post type general name', 'pp-places' ),
-				'singular_name'      => _x( 'Place', 'post type singular name', 'pp-places' ),
-				'menu_name'          => _x( 'Places', 'admin menu', 'pp-places' ),
-				'name_admin_bar'     => _x( 'Place', 'add new on admin bar', 'pp-places' ),
-				'add_new'            => _x( 'Add New', 'place', 'pp-places' ),
-				'add_new_item'       => __( 'Add New Place', 'pp-places' ),
-				'new_item'           => __( 'New Place', 'pp-places' ),
-				'edit_item'          => __( 'Edit Place', 'pp-places' ),
-				'view_item'          => __( 'View Place', 'pp-places' ),
-				'all_items'          => __( 'All Places', 'pp-places' ),
-				'search_items'       => __( 'Search Places', 'pp-places' ),
-				'parent_item_colon'  => __( 'Parent Places:', 'pp-places' ),
-				'not_found'          => __( 'No places found.', 'pp-places' ),
-				'not_found_in_trash' => __( 'No places found in Trash.', 'pp-places' ),
+				'name'               => _x( 'Places', 'post type general name', 'places' ),
+				'singular_name'      => _x( 'Place', 'post type singular name', 'places' ),
+				'menu_name'          => _x( 'Places', 'admin menu', 'places' ),
+				'name_admin_bar'     => _x( 'Place', 'add new on admin bar', 'places' ),
+				'add_new'            => _x( 'Add New', 'place', 'places' ),
+				'add_new_item'       => __( 'Add New Place', 'places' ),
+				'new_item'           => __( 'New Place', 'places' ),
+				'edit_item'          => __( 'Edit Place', 'places' ),
+				'view_item'          => __( 'View Place', 'places' ),
+				'all_items'          => __( 'All Places', 'places' ),
+				'search_items'       => __( 'Search Places', 'places' ),
+				'parent_item_colon'  => __( 'Parent Places:', 'places' ),
+				'not_found'          => __( 'No places found.', 'places' ),
+				'not_found_in_trash' => __( 'No places found in Trash.', 'places' ),
 			];
 
 			$args = [
@@ -103,7 +103,7 @@ if ( ! class_exists( 'PP_Places_Plugin' ) ) {
 
 			wp_register_script(
 				$this->slug . '-js',
-				plugins_url( 'assets/pp-places.js', __FILE__ ),
+				plugins_url( 'assets/places.js', __FILE__ ),
 				[ 'jquery' ],
 				$this->version,
 				true
@@ -111,7 +111,7 @@ if ( ! class_exists( 'PP_Places_Plugin' ) ) {
 
 			wp_localize_script(
 				$this->slug . '-js',
-				'PP_PLACES',
+				'PLACES',
 				[
 					'ajaxUrl'   => admin_url( 'admin-ajax.php' ),
 					'nonce'     => wp_create_nonce( $this->slug . '_nonce' ),
@@ -119,16 +119,16 @@ if ( ! class_exists( 'PP_Places_Plugin' ) ) {
 						'fetch'     => $this->ajax_action_fetch,
 					],
 					'i18n'      => [
-						'loading'   => __( 'Loading…', 'pp-places' ),
-						'no_results'=> __( 'No results', 'pp-places' ),
-						'load_more' => __( 'Load more', 'pp-places' ),
+						'loading'   => __( 'Loading…', 'places' ),
+						'no_results'=> __( 'No results', 'places' ),
+						'load_more' => __( 'Load more', 'places' ),
 					],
 				]
 			);
 
 			wp_enqueue_style(
 				$this->slug . '-css',
-				plugins_url( 'assets/pp-places.css', __FILE__ ),
+				plugins_url( 'assets/places.css', __FILE__ ),
 				[],
 				$this->version
 			);
@@ -147,52 +147,52 @@ if ( ! class_exists( 'PP_Places_Plugin' ) ) {
 
 			ob_start();
 			?>
-			<div class="pp-places" data-per-page="<?php echo esc_attr( $per_page ); ?>">
-				<form class="pp-places__filters" aria-label="<?php echo esc_attr__( 'Filters', 'pp-places' ); ?>">
+			<div class="places" data-per-page="<?php echo esc_attr( $per_page ); ?>">
+				<form class="places__filters" aria-label="<?php echo esc_attr__( 'Filters', 'places' ); ?>">
 					<div>
 						<label>
-							<?php esc_html_e( 'Nazwa', 'pp-places' ); ?>
+							<?php esc_html_e( 'Nazwa', 'places' ); ?>
 							<input type="text" name="name" />
 						</label>
 					</div>
 					<div>
 						<label>
-							<?php esc_html_e( 'Adres', 'pp-places' ); ?>
+							<?php esc_html_e( 'Adres', 'places' ); ?>
 							<input type="text" name="address" />
 						</label>
 					</div>
 					<div>
 						<label>
-							<?php esc_html_e( 'NIP', 'pp-places' ); ?>
+							<?php esc_html_e( 'NIP', 'places' ); ?>
 							<input type="text" name="nip" />
 						</label>
 					</div>
 					<div>
 						<label>
-							<?php esc_html_e( 'REGON', 'pp-places' ); ?>
+							<?php esc_html_e( 'REGON', 'places' ); ?>
 							<input type="text" name="regon" />
 						</label>
 					</div>
-					<button type="submit"><?php esc_html_e( 'Filtruj', 'pp-places' ); ?></button>
+					<button type="submit"><?php esc_html_e( 'Filtruj', 'places' ); ?></button>
 				</form>
 
-				<div class="pp-places__table-wrap">
-					<table class="pp-places__table" aria-live="polite">
+				<div class="places__table-wrap">
+					<table class="places__table" aria-live="polite">
 						<thead>
 							<tr>
-								<th><?php esc_html_e( 'Nazwa', 'pp-places' ); ?></th>
-								<th><?php esc_html_e( 'Adres', 'pp-places' ); ?></th>
-								<th><?php esc_html_e( 'NIP', 'pp-places' ); ?></th>
-								<th><?php esc_html_e( 'REGON', 'pp-places' ); ?></th>
+								<th><?php esc_html_e( 'Nazwa', 'places' ); ?></th>
+								<th><?php esc_html_e( 'Adres', 'places' ); ?></th>
+								<th><?php esc_html_e( 'NIP', 'places' ); ?></th>
+								<th><?php esc_html_e( 'REGON', 'places' ); ?></th>
 							</tr>
 						</thead>
 						<tbody></tbody>
 					</table>
-					<div class="pp-places__no-results" style="display:none;"></div>
+					<div class="places__no-results" style="display:none;"></div>
 				</div>
 
-				<div class="pp-places__load-more-wrap">
-					<button type="button" class="pp-places__load-more"><?php esc_html_e( 'Load more', 'pp-places' ); ?></button>
+				<div class="places__load-more-wrap">
+					<button type="button" class="places__load-more"><?php esc_html_e( 'Load more', 'places' ); ?></button>
 				</div>
 			</div>
 			<?php
@@ -289,5 +289,5 @@ if ( ! class_exists( 'PP_Places_Plugin' ) ) {
 	}
 
 	// Inicjalizacja.
-	PP_Places_Plugin::instance();
+	Places_Plugin::instance();
 }
